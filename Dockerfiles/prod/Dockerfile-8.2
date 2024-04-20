@@ -1,6 +1,6 @@
 # vi: ft=dockerfile
 # Auto-generated via Ansible: edit ./ansible/DOCKERFILES/Dockerfile-prod.j2 instead.
-FROM zaguocai/php-fpm:8.3-mods
+FROM zaguocai/php-fpm:8.2-mods
 MAINTAINER "zaguocai" <zaguocai@126.com>
 
 
@@ -18,9 +18,9 @@ MAINTAINER "zaguocai" <zaguocai@126.com>
 #LABEL "org.opencontainers.image.source"="https://github.com/devilbox/docker-php-fpm"
 #LABEL "org.opencontainers.image.vendor"="devilbox"
 #LABEL "org.opencontainers.image.licenses"="MIT"
-#LABEL "org.opencontainers.image.ref.name"="8.3-prod"
-#LABEL "org.opencontainers.image.title"="PHP-FPM 8.3-prod"
-#LABEL "org.opencontainers.image.description"="PHP-FPM 8.3-prod"
+#LABEL "org.opencontainers.image.ref.name"="8.2-prod"
+#LABEL "org.opencontainers.image.title"="PHP-FPM 8.2-prod"
+#LABEL "org.opencontainers.image.description"="PHP-FPM 8.2-prod"
 
 
 ###
@@ -36,12 +36,7 @@ RUN set -eux \
 		rsyslog \
 		socat \
 		supervisor \
-# Add git and composer
-		git \
 	&& rm -rf /var/lib/apt/lists/* \
-	\
-# Install composer
-	&& curl -sLS https://getcomposer.org/installer | php -- --install-dir=/usr/bin/ --filename=composer \
 	\
 # Fix: rsyslogd: imklog: cannot open kernel log (/proc/kmsg): Operation not permitted.
 	&& sed -i''  's/.*imklog.*//g' /etc/rsyslog.conf \
@@ -63,7 +58,7 @@ RUN set -eux \
 ###
 RUN set -eux \
 	&& echo "date.timezone=UTC" > /usr/local/etc/php/php.ini \
-	&& php -v | grep -oE 'PHP\s[.0-9]+' | grep -oE '[.0-9]+' | grep '^8.3' \
+	&& php -v | grep -oE 'PHP\s[.0-9]+' | grep -oE '[.0-9]+' | grep '^8.2' \
 	&& /usr/local/sbin/php-fpm --test \
 	\
 	&& PHP_ERROR="$( php -v 2>&1 1>/dev/null )" \
