@@ -55,8 +55,8 @@ jobs:
     needs: [params]
     uses: lapzeon/github-actions/.github/workflows/docker-multistage-configure.yml@main
     with:
-      enabled: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && (github.event.pull_request.user.login != 'linuxeye')) }}
-      can_deploy: ${{ (github.repository == 'linuxeye/docker-php-fpm') && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') || startsWith(github.ref, 'refs/heads/release-')) }}
+      enabled: ${{ github.event_name == 'push' || github.event_name == 'workflow_dispatch' || (github.event_name == 'pull_request' && (github.event.pull_request.user.login != 'lapzeon')) }}
+      can_deploy: ${{ (github.repository == 'lapzeon/docker-php-fpm') && (github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/tags/') || startsWith(github.ref, 'refs/heads/release-')) }}
       versions: ${{ needs.params.outputs.versions }}
       refs: ${{ needs.params.outputs.refs }}
     secrets:
