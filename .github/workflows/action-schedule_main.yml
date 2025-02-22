@@ -31,7 +31,7 @@ jobs:
   # -----------------------------------------------------------------------------------------------
   configure:
     needs: [params]
-    uses: lapzeon/github-actions/.github/workflows/docker-multistage-configure.yml@main
+    uses: zaguocai/github-actions/.github/workflows/docker-multistage-configure.yml@main
     with:
       enabled: true
       can_deploy: true
@@ -48,7 +48,7 @@ jobs:
   build-base:
     needs:
       - configure
-    uses: lapzeon/github-actions/.github/workflows/docker-multistage-build.yml@main
+    uses: zaguocai/github-actions/.github/workflows/docker-multistage-build.yml@main
     with:
       has_refs: ${{ needs.configure.outputs.has_refs == 'true' }}
       run_tests: false
@@ -66,7 +66,7 @@ jobs:
     needs:
       - configure
       - build-base
-    uses: lapzeon/github-actions/.github/workflows/docker-multistage-build.yml@main
+    uses: zaguocai/github-actions/.github/workflows/docker-multistage-build.yml@main
     with:
       has_refs: ${{ needs.configure.outputs.has_refs == 'true' }}
       run_tests: false
@@ -83,7 +83,7 @@ jobs:
     needs:
       - configure
       - build-mods
-    uses: lapzeon/github-actions/.github/workflows/docker-multistage-build.yml@main
+    uses: zaguocai/github-actions/.github/workflows/docker-multistage-build.yml@main
     with:
       has_refs: ${{ needs.configure.outputs.has_refs == 'true' }}
       run_tests: false
@@ -102,7 +102,7 @@ jobs:
       - build-base
       - build-mods
       - build-prod
-    uses: lapzeon/github-actions/.github/workflows/docker-multistage-push-image.yml@main
+    uses: zaguocai/github-actions/.github/workflows/docker-multistage-push-image.yml@main
     with:
       can_deploy: ${{ needs.configure.outputs.can_login == 'true' && needs.configure.outputs.can_push == 'true' }}
       has_refs: ${{ needs.configure.outputs.has_refs == 'true' }}
@@ -119,7 +119,7 @@ jobs:
       - build-base
       - build-mods
       - build-prod
-    uses: lapzeon/github-actions/.github/workflows/docker-multistage-push-image.yml@main
+    uses: zaguocai/github-actions/.github/workflows/docker-multistage-push-image.yml@main
     with:
       can_deploy: ${{ needs.configure.outputs.can_login == 'true' && needs.configure.outputs.can_push == 'true' }}
       has_refs: ${{ needs.configure.outputs.has_refs == 'true' }}
@@ -136,7 +136,7 @@ jobs:
       - build-base
       - build-mods
       - build-prod
-    uses: lapzeon/github-actions/.github/workflows/docker-multistage-push-image.yml@main
+    uses: zaguocai/github-actions/.github/workflows/docker-multistage-push-image.yml@main
     with:
       can_deploy: ${{ needs.configure.outputs.can_login == 'true' && needs.configure.outputs.can_push == 'true' }}
       has_refs: ${{ needs.configure.outputs.has_refs == 'true' }}
@@ -154,7 +154,7 @@ jobs:
     needs:
       - configure
       - push-base
-    uses: lapzeon/github-actions/.github/workflows/docker-multistage-push-manifest.yml@main
+    uses: zaguocai/github-actions/.github/workflows/docker-multistage-push-manifest.yml@main
     with:
       can_deploy: ${{ needs.configure.outputs.can_login == 'true' && needs.configure.outputs.can_push == 'true' }}
       has_refs: ${{ needs.configure.outputs.has_refs == 'true' }}
@@ -169,7 +169,7 @@ jobs:
     needs:
       - configure
       - push-mods
-    uses: lapzeon/github-actions/.github/workflows/docker-multistage-push-manifest.yml@main
+    uses: zaguocai/github-actions/.github/workflows/docker-multistage-push-manifest.yml@main
     with:
       can_deploy: ${{ needs.configure.outputs.can_login == 'true' && needs.configure.outputs.can_push == 'true' }}
       has_refs: ${{ needs.configure.outputs.has_refs == 'true' }}
@@ -184,7 +184,7 @@ jobs:
     needs:
       - configure
       - push-prod
-    uses: lapzeon/github-actions/.github/workflows/docker-multistage-push-manifest.yml@main
+    uses: zaguocai/github-actions/.github/workflows/docker-multistage-push-manifest.yml@main
     with:
       can_deploy: ${{ needs.configure.outputs.can_login == 'true' && needs.configure.outputs.can_push == 'true' }}
       has_refs: ${{ needs.configure.outputs.has_refs == 'true' }}
