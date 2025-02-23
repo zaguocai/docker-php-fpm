@@ -1,7 +1,7 @@
 # vi: ft=dockerfile
 # Auto-generated via Ansible: edit ./ansible/DOCKERFILES/Dockerfile-base.j2 instead.
-FROM php:8.1-fpm
-MAINTAINER "zaguocai" <zaguocai@126.com>
+FROM php:8.4-fpm
+MAINTAINER "Justo" <lj2007331@gmail.com>
 
 
 ###
@@ -26,10 +26,13 @@ RUN set -eux \
 ### Upgrade (install ps)
 ###
 RUN set -eux \
-	&& DEBIAN_FRONTEND=noninteractive apt-get update \
-	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests \
+	&& echo deb http://www.deb-multimedia.org bookworm main non-free > /etc/apt/sources.list.d/deb-multimedia.list \
+	&& DEBIAN_FRONTEND=noninteractive apt-get update -oAcquire::AllowInsecureRepositories=true \
+	&& DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends --no-install-suggests --allow-unauthenticated \
 		dpkg-dev \
 		procps \
+		deb-multimedia-keyring \
+	&& apt-get clean \
 	&& rm -rf /var/lib/apt/lists/*
 
 
